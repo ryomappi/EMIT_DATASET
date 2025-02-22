@@ -185,8 +185,10 @@ def main():
     args = parser.parse_args()
 
     # .env ファイルから Earthdata Login 情報を取得してログイン
-    load_dotenv()
-    earthaccess.login(strategy="environment", persist=True)
+    auth = earthaccess.login(strategy="environment", persist=True)
+    if not auth:
+        print("Earthdata Login に失敗しました.")
+        sys.exit(1)
 
     # HTTPS セッションを取得
     fs = earthaccess.get_fsspec_https_session()
