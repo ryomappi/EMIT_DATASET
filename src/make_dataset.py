@@ -202,8 +202,9 @@ def main():
 
     # dataset.csv に書き込む
     dataset_csv_path = Path("data/dataset/dataset.csv")
-    with open(dataset_csv_path, "w") as f:
-        f.write("geojson_id,timestamp,EMITL2ARFL_url,EMITL2BCH4PLM_url\n")
+    if not dataset_csv_path.exists():
+        with open(dataset_csv_path, "w") as f:
+            f.write("geojson_id,timestamp,EMITL2ARFL_url,EMITL2BCH4PLM_url\n")
     for geojson_path in geojson_paths:
         url_pairs = search_by_geojson(geojson_path, args.date_range)
         url_pair = url_pairs[0]  # 一番目のペアのみを使用
