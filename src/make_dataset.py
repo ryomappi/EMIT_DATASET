@@ -185,6 +185,7 @@ def main():
     args = parser.parse_args()
 
     # .env ファイルから Earthdata Login 情報を取得してログイン
+    load_dotenv()
     auth = earthaccess.login(strategy="environment", persist=True)
     if not auth:
         print("Earthdata Login に失敗しました.")
